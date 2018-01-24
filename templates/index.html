@@ -1,75 +1,121 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Apps</title>
-     <script src="../static/js/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/css/custom.css">
-</head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<body>
-    <div class="container col-lg-6" style="margin-top: 140px;">
-        <div style="padding-bottom: 0.5cm">
-            <div class="card text-center bg-light">
-                <div class="card-body" style="padding-bottom: 0.2cm">
-                    <input class="card-title form-control" type="text" id="input" name="input" placeholder="Input sentence"/>
-                    <button class="card-text btn btn-outline-primary" id="btn">分词</button>
-                    <div class="spinner" id="spinner" style="display: none">
-                      <div class="double-bounce1"></div>
-                      <div class="double-bounce2"></div>
-                    </div>
-                </div>
-                <div class="card-footer bg-white">
-                    <pre class="card-text api-pre" style="padding-bottom: 0.2cm">
-                        <div class="item" id="api_input"> </div>
-                        <div class="item" id="api_output"> </div>
-                    </pre>
-                </div>
+    <title> Applications </title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/album.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <header>
+      <div class="collapse bg-dark" id="navbarHeader">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-8 py-4">
+              <h4 class="text-white">About</h4>
+              <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
             </div>
+            <div class="col-sm-4 py-4">
+              <h4 class="text-white">Contact</h4>
+              <ul class="list-unstyled">
+                <li><a href="#" class="text-white">Follow on Twitter</a></li>
+                <li><a href="#" class="text-white">Like on Facebook</a></li>
+                <li><a href="#" class="text-white">Email me</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
-    </div>
-</body>
+      </div>
+      <div class="navbar navbar-dark bg-dark">
+        <div class="container d-flex justify-content-between">
+          <a href="#" class="navbar-brand">Applications</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main role="main">
+
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">Applications</h1>
+        </div>
+      </section>
+
+      <div class="album text-muted">
+        <div class="container">
+
+          <div class="row">
+            <div class="card" style="background-color: #545454f7; cursor: pointer;" onclick="window.location.href='/tokenizer'" >
+              <p class="card-text">分词</p>
+            </div>
+
+            <div class="card" style="background-color: #ff9600; cursor: pointer;" onclick="window.location.href='/slot_filling'" >
+              <p class="card-text">Slot Filling</p>
+            </div>
+
+            <div class="card">
+              <p class="card-text"> WIP... </p>
+            </div>
+            <div class="card">
+              <p class="card-text"> WIP... </p>
+            </div>
+            <div class="card">
+              <p class="card-text"> WIP... </p>
+            </div>
+            <div class="card">
+              <p class="card-text"> WIP... </p>
+            </div>
+            <div class="card">
+              <p class="card-text"> WIP... </p>
+            </div>
 
 
 
-<script type="text/javascript">
-    function api_call(input) {
-        // hide button and make the spinner appear
-        $('#btn').toggle();
-        $('#spinner').toggle();
+          </div>
 
-        $.ajax({
-            url: "/tokenize",
-            method: 'post',
-            data: {"input": input},
-            success: function(data){
-                // toggle the spinner and button
-                $('#btn').toggle();
-                $('#spinner').toggle();
-                $('#api_input').html(data.input);
-                $('#api_output').html(data.output);
-                $("#input").val("");
-            },
-            timeout: 3000 // sets timeout to 10 seconds
-        });
-    }
-    $( document ).ready(function() {
-        $('#btn').click(function() {
-            var input = $("#input").val();
-            api_call(input);
-            input = "";
-        });
+        </div>
+      </div>
 
-        //回车绑定
-        $("#input").keydown(function(event){
-            if(event.which == "13"){
-                var input = $("#input").val();
-                api_call(input);
-                input = "";
-            }
-        });
-    });
-</script>
+    </main>
 
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Back to top</a>
+        </p>
+        <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+        <p>New to Bootstrap? <a href="../../">Visit the homepage</a> or read our <a href="../../getting-started/">getting started guide</a>.</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../static/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="../static/assets/js/vendor/popper.min.js"></script>
+    <script src="../static/dist/js/bootstrap.min.js"></script>
+    <script src="../static/assets/js/vendor/holder.min.js"></script>
+    <script>
+      Holder.addTheme('thumb', {
+        bg: '#55595c',
+        fg: '#eceeef',
+        text: 'Thumbnail'
+      });
+    </script>
+  </body>
 </html>
