@@ -53,8 +53,6 @@ class LstmCrfInference(Inference):
         else:
             word_list = list(query)
 
-        logging.info(json.dumps(word_list, ensure_ascii=False))
-
         pad_word_list = word_list[:self.max_length]\
                         + [self.pad_tok] * max(self.max_length - len(word_list), 0)
         word_indexs = list(self.word_dict.get(x, self.word_num) for x in pad_word_list)

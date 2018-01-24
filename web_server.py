@@ -8,6 +8,7 @@ The XXX file.
 Authors: Wang Jianxiang (wangjianxing01@baidu.com)
 """
 import sys
+import os
 reload(sys)
 sys.setdefaultencoding("utf-8")
 import logging
@@ -15,10 +16,10 @@ import json
 from flask import Flask, render_template, request, jsonify
 from apps.tokenizer import Tokenizer
 from apps.model_proxy import SlotFillingProxy
+import logging.config
+import yaml
 
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 app = Flask(__name__)
 
@@ -42,6 +43,7 @@ def tokenizer_run():
     input_data = request.form
     logger.info('Input data: %s' % json.dumps(input_data, ensure_ascii=False))
     output_data = tokenizer.response(input_data)
+    logger.info('Output data: %s' % json.dumps(output_data, ensure_ascii=False))
     return jsonify(output_data)
 
 
@@ -57,10 +59,28 @@ def slot_filling():
 @app.route("/slot_filling/run", methods=['POST'])
 def slot_filling_run():
     input_data = request.form
-    logger.info('Input data: %s' % json.dumps(input_data, ensure_ascii=False))
+    logger.info('Input data = %s' % json.dumps(input_data, ensure_ascii=False))
     output_data = slot_filling_gproxy.response(input_data)
+    logger.info('Output data: %s' % json.dumps(output_data, ensure_ascii=False))
     return jsonify(output_data)
 
 
+def setup_logging(default_path='logging.yaml', default_level=logging.INFO, env_key='LOG_CFG'):
+    """
+        Setup logging configuration.
+    """
+    path = default_path
+    value = os.getenv(env_key, None)
+    if value:
+        path = value
+    if os.path.exists(path):
+        with open(path, 'rt') as f:
+            config = yaml.safe_load(f.read())
+        logging.config.dictConfig(config)
+    else:
+        logging.basicConfig(level=default_level)
+
+
 if __name__ == '__main__':
+    setup_logging()
     app.run(host="0.0.0.0", port=8888)
