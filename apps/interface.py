@@ -1,10 +1,10 @@
 # coding=utf-8
-#
-# Copyright (c) 2017 Baidu.com, Inc. All Rights Reserved
-#
 """
-Authors: Wang Jianxiang (wangjianxing01@baidu.com)
+The interface file.
+
+Authors: Wang Jianxiang (w51141201062@163.com)
 """
+
 import abc
 import tensorflow as tf
 
